@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,7 @@ export interface SecondaryData {
   insight: string;
   source: string;
   type: 'tracking' | 'automation' | 'personalization';
+  files?: string[];
 }
 
 export interface PrimaryData {
@@ -22,6 +22,7 @@ export interface PrimaryData {
   sourceName: string;
   businessType: string;
   location: string;
+  files?: string[];
 }
 
 type Step = 'home' | 'secondary' | 'primary' | 'report';
@@ -103,20 +104,20 @@ const Research = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card className="hover:shadow-lg transition-shadow border-0 bg-gradient-to-br from-blue-50 to-blue-100">
+        <Card className="hover:shadow-lg transition-shadow border-0 bg-gradient-to-br from-sky-50 to-mint-50">
           <CardHeader className="text-center pb-4">
-            <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-sky-400 rounded-full flex items-center justify-center mx-auto mb-4">
               <FileSearch className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-xl text-gray-800">Secondary Research</CardTitle>
             <CardDescription className="text-gray-600">
-              Gather insights from existing reports, studies, and industry data
+              Gather quantitative insights from existing reports, studies, and industry data
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <Button 
               onClick={() => setCurrentStep('secondary')}
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+              className="w-full bg-sky-400 hover:bg-sky-500 text-white"
             >
               Start Secondary Research ✅
             </Button>
@@ -125,12 +126,12 @@ const Research = () => {
 
         <Card className={`transition-all border-0 ${
           canStartPrimary 
-            ? 'hover:shadow-lg bg-gradient-to-br from-emerald-50 to-emerald-100' 
+            ? 'hover:shadow-lg bg-gradient-to-br from-purple-50 to-pink-50' 
             : 'bg-gray-50 opacity-60'
         }`}>
           <CardHeader className="text-center pb-4">
             <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-              canStartPrimary ? 'bg-emerald-500' : 'bg-gray-400'
+              canStartPrimary ? 'bg-purple-400' : 'bg-gray-400'
             }`}>
               <Users className="w-8 h-8 text-white" />
             </div>
@@ -138,7 +139,7 @@ const Research = () => {
               Primary Research
             </CardTitle>
             <CardDescription className={canStartPrimary ? 'text-gray-600' : 'text-gray-400'}>
-              Collect firsthand data through surveys, interviews, and observations
+              Collect qualitative data through surveys, interviews, and observations
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
@@ -147,7 +148,7 @@ const Research = () => {
               disabled={!canStartPrimary}
               className={`w-full ${
                 canStartPrimary 
-                  ? 'bg-emerald-500 hover:bg-emerald-600 text-white' 
+                  ? 'bg-purple-400 hover:bg-purple-500 text-white' 
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
@@ -163,7 +164,7 @@ const Research = () => {
       </div>
 
       {(secondaryData.length > 0 || primaryData.length > 0) && (
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-0">
+        <Card className="bg-gradient-to-br from-mint-50 to-emerald-50 border-0">
           <CardHeader className="text-center">
             <CardTitle className="text-xl text-gray-800 flex items-center justify-center gap-2">
               <Target className="w-6 h-6" />
@@ -173,18 +174,18 @@ const Research = () => {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-blue-600">{secondaryData.length}</div>
+                <div className="text-2xl font-bold text-sky-500">{secondaryData.length}</div>
                 <div className="text-sm text-gray-600">Secondary Insights</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-emerald-600">{primaryData.length}</div>
+                <div className="text-2xl font-bold text-purple-500">{primaryData.length}</div>
                 <div className="text-sm text-gray-600">Primary Insights</div>
               </div>
             </div>
             {primaryData.length > 0 && (
               <Button 
                 onClick={() => setCurrentStep('report')}
-                className="w-full bg-purple-500 hover:bg-purple-600 text-white"
+                className="w-full bg-emerald-400 hover:bg-emerald-500 text-white"
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
                 View Research Report
@@ -197,7 +198,7 @@ const Research = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-sky-50 p-6">
       <div className="max-w-7xl mx-auto">
         {renderStepIndicator()}
         
